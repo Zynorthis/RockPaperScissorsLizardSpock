@@ -1,0 +1,2 @@
+D:\devCodeCamp\C#\RockPaperScissorsLizardSpock\RockPaperScissorsLizardSpock\obj\Debug\RockPaperScissorsLizardSpock.csprojAssemblyReference.cache
+D:\devCodeCamp\C#\RockPaperScissorsLizardSpock\RockPaperScissorsLizardSpock\obj\Debug\RockPaperScissorsLizardSpock.csproj.CoreCompileInputs.cache
