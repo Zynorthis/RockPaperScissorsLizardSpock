@@ -6,31 +6,30 @@ using System.Threading.Tasks;
 
 namespace RockPaperScissorsLizardSpock
 {
-    abstract class PlayerClass
+    abstract class Player
     {
         public string gesture;
         public int personalScore;
 
-        public List<string> gestures = new List<string>();
+        public List<string> gesturesList = new List<string>();
 
-        public PlayerClass(string gesture, int personalScore)
+        public Player(string gesture, int personalScore)
         {
             this.gesture = gesture;
             this.personalScore = personalScore;
+            AddGestures();
         }
 
-        public List<string> AddGestures()
+        public void AddGestures()
         {
-            gestures.Add("rock");
-            gestures.Add("paper");
-            gestures.Add("scissors");
-            gestures.Add("lizard");
-            gestures.Add("spock");
-
-            return gestures;
+            gesturesList.Add("rock");
+            gesturesList.Add("paper");
+            gesturesList.Add("scissors");
+            gesturesList.Add("lizard");
+            gesturesList.Add("spock");
         }
 
-        public abstract int ChooseGesture();
+        public abstract string ChooseGesture();
 
         // hold information about players
         // (which gesture / win counter)

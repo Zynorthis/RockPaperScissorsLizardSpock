@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 
 namespace RockPaperScissorsLizardSpock
 {
-    class AIClass : PlayerClass
+    class AI : Player
     {
         public int aiInput;
 
-        public AIClass(string gesture, int personalScore, int aiInput)
+        public AI(string gesture, int personalScore, int aiInput)
             :base(gesture, personalScore)
         {
             this.gesture = gesture;
@@ -18,9 +18,13 @@ namespace RockPaperScissorsLizardSpock
             this.aiInput = aiInput;
         }
 
-        public override int ChooseGesture()
+        public override string ChooseGesture()
         {
-            return 0; // take AI input (Randomly decide things)
+            Random rng = new Random();
+            int gestureRoll = rng.Next(5);
+            Console.WriteLine("DevTesting: " + gestureRoll);
+            //this.gesture = gesturesList.ElementAt(gestureRoll);
+            return gesturesList.ElementAt(gestureRoll);
         }
     }
 }

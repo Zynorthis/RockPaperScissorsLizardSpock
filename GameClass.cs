@@ -6,16 +6,19 @@ using System.Threading.Tasks;
 
 namespace RockPaperScissorsLizardSpock
 {
-    class GameClass
+    class Game
     {
         public int roundCounter;
         public bool overallWinner;
         public int playerCount;
         public bool isSinglePlayer;
+        public int maxRounds;
+        Player Player1;
+        Player Player2;
 
         public string errorMessage = "That was not a valid input, please try again.";
 
-        public GameClass(int roundCounter, bool overallWinner, int playerCount, bool isSinglePlayer)
+        public Game(int roundCounter, bool overallWinner, int playerCount, bool isSinglePlayer)
         {
             this.roundCounter = roundCounter;
             this.overallWinner = overallWinner;
@@ -26,13 +29,16 @@ namespace RockPaperScissorsLizardSpock
         public void GameInitializer()
         {
             // setting things up based on player input
+            
             Mode();
             if (isSinglePlayer == false)
             {
                 PlayerCounter();
+                
             }
             RoundInitializer();
             PlayerInitializer();
+            roundCounter++; // round starts at round one, not 0
             GameLoop();
         }
 
@@ -40,6 +46,30 @@ namespace RockPaperScissorsLizardSpock
         {
             // everything runs here
             TurnHandler();
+            gestureComparision();
+            if (roundCounter >= maxRounds)
+            {
+                //End of game intiates
+                Console.Clear();
+                Console.WriteLine("Game Over!");
+                if (Player1.personalScore > Player2.personalScore)
+                {
+                    Console.WriteLine("Player 1 is the Winner!");
+                }
+                else if (Player2.personalScore > Player1.personalScore)
+                {
+                    Console.WriteLine("Player 2 is the Winner!");
+                }
+                else
+                {
+                    Console.WriteLine("Something has gone horribly wrong to end up here...");
+                    Console.ReadLine();
+                }
+            }
+            else
+            {
+                GameLoop();
+            }
         }
 
         public void PlayerCounter()
@@ -85,7 +115,7 @@ namespace RockPaperScissorsLizardSpock
         public int RoundInitializer()
         {
             Console.WriteLine("How many rounds would you like to play (minimum:3 / Maximum:25)");
-            int maxRounds = Int32.Parse(Console.ReadLine());
+            maxRounds = Int32.Parse(Console.ReadLine());
             if (maxRounds < 3 || maxRounds > 25)
             {
                 Console.WriteLine(errorMessage);
@@ -103,37 +133,202 @@ namespace RockPaperScissorsLizardSpock
             return maxRounds;
         }
 
-        public int PlayerInitializer()
+        public void PlayerInitializer()
         {
+
             if (isSinglePlayer == true)
             {
-                int options = 1;
-                return options;
+                Player1 = new Human("none", 0, 0);
+                Player2 = new AI("none", 0, 0);
             }
             else
             {
-                int options = 2;
-                return options;
+                Player1 = new Human("none", 0, 0);
+                Player2 = new Human("none", 0, 0);
             }
-
-            //List<PlayerClass> playerList = new List<PlayerClass>();
+            
+            //List<Player> playerList = new List<Player>();
             //playerList.Capacity = playerCount;
             //foreach (int index in playerList)
             //{
-                //playerList.Add(player+index);
-                //index++;
+            //playerList.Add(player+index);
+            //index++;
             //}
         }
 
         public void TurnHandler()
         {
             Console.WriteLine("Round " + roundCounter + "!");
+            Console.WriteLine("Press any key to continue");
+            Console.ReadLine();
             Console.Clear();
-            Player1.ChooseGesture();
+            Player1.gesture = Player1.ChooseGesture();
             Console.Clear();
-            Player2.ChooseGesture();
-            Console.Clear();
+            Player2.gesture = Player2.ChooseGesture();
+        }
 
+        public void gestureComparision()
+        {
+            if (Player1.gesture == Player2.gesture)
+            {
+                Console.WriteLine("It was a draw!");
+                Console.ReadLine();
+                TurnHandler();
+            }
+            else
+            {
+                switch (Player1.gesture) { 
+                    case "rock":
+                        switch (Player2.gesture)
+                        {
+                            case "paper":
+                                Console.WriteLine("Player 2 won!");
+                                Console.ReadLine();
+                                Player2.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "scissors":
+                                Console.WriteLine("Player 1 won!");
+                                Console.ReadLine();
+                                Player1.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "lizard":
+                                Console.WriteLine("Player 1 won!");
+                                Console.ReadLine();
+                                Player1.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "spock":
+                                Console.WriteLine("Player 2 won!");
+                                Console.ReadLine();
+                                Player2.personalScore++;
+                                roundCounter++;
+                                break;
+                        }
+                        break;
+                    case "paper":
+                        switch (Player2.gesture)
+                        {
+                            case "rock":
+                                Console.WriteLine("Player 1 won!");
+                                Console.ReadLine();
+                                Player1.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "scissors":
+                                Console.WriteLine("Player 2 won!");
+                                Console.ReadLine();
+                                Player2.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "lizard":
+                                Console.WriteLine("Player 2 won!");
+                                Console.ReadLine();
+                                Player2.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "spock":
+                                Console.WriteLine("Player 1 won!");
+                                Console.ReadLine();
+                                Player1.personalScore++;
+                                roundCounter++;
+                                break;
+                        }
+                        break;
+                    case "scissors":
+                        switch (Player2.gesture)
+                        {
+                            case "paper":
+                                Console.WriteLine("Player 1 won!");
+                                Console.ReadLine();
+                                Player1.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "rock":
+                                Console.WriteLine("Player 2 won!");
+                                Console.ReadLine();
+                                Player2.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "lizard":
+                                Console.WriteLine("Player 1 won!");
+                                Console.ReadLine();
+                                Player1.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "spock":
+                                Console.WriteLine("Player 2 won!");
+                                Console.ReadLine();
+                                Player2.personalScore++;
+                                roundCounter++;
+                                break;
+                        }
+                        break;
+                    case "lizard":
+                        switch (Player1.gesture)
+                        {
+                            case "paper":
+                                Console.WriteLine("Player 1 won!");
+                                Console.ReadLine();
+                                Player2.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "scissors":
+                                Console.WriteLine("Player 2 won!");
+                                Console.ReadLine();
+                                Player2.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "rock":
+                                Console.WriteLine("Player 2 won!");
+                                Console.ReadLine();
+                                Player2.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "spock":
+                                Console.WriteLine("Player 1 won!");
+                                Console.ReadLine();
+                                Player1.personalScore++;
+                                roundCounter++;
+                                break;
+                        }
+                        break;
+                    case "spock":
+                        switch (Player2.gesture)
+                        {
+                            case "paper":
+                                Console.WriteLine("Player 1 won!");
+                                Console.ReadLine();
+                                Player1.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "scissors":
+                                Console.WriteLine("Player 1 won!");
+                                Console.ReadLine();
+                                Player1.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "lizard":
+                                Console.WriteLine("Player 2 won!");
+                                Console.ReadLine();
+                                Player2.personalScore++;
+                                roundCounter++;
+                                break;
+                            case "rock":
+                                Console.WriteLine("Player 1 won!");
+                                Console.ReadLine();
+                                Player1.personalScore++;
+                                roundCounter++;
+                                break;
+                        }
+                        break;
+                    default:
+                        Console.WriteLine("Something went horribly wrong here...");
+                        Console.ReadLine();
+                        break;
+                }
+            }
         }
 
         // decide round winners
