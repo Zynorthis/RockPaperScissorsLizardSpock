@@ -11,8 +11,24 @@ namespace RockPaperScissorsLizardSpock
         static void Main(string[] args)
         {
             GameClass GameHandler = new GameClass(0, false, 0, true); //Object Handling game counters/conditionals
-            GameHandler.PlayerCounter(0);
-            // Call GameClass here
+            GameHandler.GameInitializer();
+            int options;
+            options = PlayerInitializer();
+
+            if (options == 1)
+            {
+                PlayerClass Player1 = new HumanClass("none", 0, 0);
+                PlayerClass Player2 = new AIClass("none", 0, 0);
+            }
+            else if (options == 2)
+            {
+                PlayerClass Player1 = new HumanClass("none", 0, 0);
+                PlayerClass Player2 = new HumanClass("none", 0, 0);
+            }
+            else
+            {
+                Console.WriteLine("Huh?");
+            }
         }
     }
 }

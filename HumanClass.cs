@@ -18,6 +18,9 @@ namespace RockPaperScissorsLizardSpock
             this.humanInput = humanInput;
         }
 
-        // take human input
+        public override int ChooseGesture()
+        {
+            return 0; // take human input
+        }
     }
 }

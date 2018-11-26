@@ -12,6 +12,7 @@ namespace RockPaperScissorsLizardSpock
         public bool overallWinner;
         public int playerCount;
         public bool isSinglePlayer;
+
         public string errorMessage = "That was not a valid input, please try again.";
 
         public GameClass(int roundCounter, bool overallWinner, int playerCount, bool isSinglePlayer)
@@ -22,12 +23,26 @@ namespace RockPaperScissorsLizardSpock
             this.isSinglePlayer = isSinglePlayer;
         }
 
-        public GameClass GameInitializer(GameHandler)
+        public void GameInitializer()
         {
-            // Run everything here
+            // setting things up based on player input
+            Mode();
+            if (isSinglePlayer == false)
+            {
+                PlayerCounter();
+            }
+            RoundInitializer();
+            PlayerInitializer();
+            GameLoop();
         }
 
-        public int PlayerCounter(int playerCount)
+        public void GameLoop()
+        {
+            // everything runs here
+            TurnHandler();
+        }
+
+        public void PlayerCounter()
         {
             Console.WriteLine("How Many Players will there be? (Choose between 2-4)");
             int NumberOfPlayers = Int32.Parse(Console.ReadLine());
@@ -35,34 +50,34 @@ namespace RockPaperScissorsLizardSpock
                 
                 case 2:
                     playerCount = 2;
-                    return playerCount;
-                case 3:
-                    playerCount = 3;
-                    return playerCount;
-                case 4:
-                    playerCount = 4;
-                    return playerCount;
+                    break;
+                //case 3:
+                    //playerCount = 3;
+                    //break;
+                //case 4:
+                    //playerCount = 4;
+                    //break;
                 default:
                     Console.WriteLine(errorMessage);
-                    PlayerCounter(playerCount);
+                    PlayerCounter();
                     break;
             }
         }
 
-        public bool Mode(bool isSinglePlayer)
+        public void Mode()
         {
             Console.WriteLine("Do you want to play single player or multiplayer?");
             switch (Console.ReadLine())
             {
                 case "single":
                     isSinglePlayer = true;
-                    return isSinglePlayer;
+                    break;
                 case "multiplayer":
                     isSinglePlayer = false;
-                    return isSinglePlayer;
+                    break;
                 default:
                     Console.WriteLine(errorMessage);
-                    Mode(isSinglePlayer);
+                    Mode();
                     break;
             }
         }
@@ -80,17 +95,46 @@ namespace RockPaperScissorsLizardSpock
             else {
                 if (maxRounds%2 == 0)
                 {
-                    Console.WriteLine(errorMessage+"/n"+"The rounds need to be an odd amount or it may end in a draw!");
+                    Console.WriteLine(errorMessage + "\n" + "The rounds need to be an odd amount or the game may end in a draw!");
                     Console.ReadLine();
                     RoundInitializer();
                 }
-                else
-                {
-                    return maxRounds;
-                }
             }
+            return maxRounds;
         }
 
+        public int PlayerInitializer()
+        {
+            if (isSinglePlayer == true)
+            {
+                int options = 1;
+                return options;
+            }
+            else
+            {
+                int options = 2;
+                return options;
+            }
+
+            //List<PlayerClass> playerList = new List<PlayerClass>();
+            //playerList.Capacity = playerCount;
+            //foreach (int index in playerList)
+            //{
+                //playerList.Add(player+index);
+                //index++;
+            //}
+        }
+
+        public void TurnHandler()
+        {
+            Console.WriteLine("Round " + roundCounter + "!");
+            Console.Clear();
+            Player1.ChooseGesture();
+            Console.Clear();
+            Player2.ChooseGesture();
+            Console.Clear();
+
+        }
 
         // decide round winners
         // decide overall winner

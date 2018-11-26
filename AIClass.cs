@@ -18,6 +18,9 @@ namespace RockPaperScissorsLizardSpock
             this.aiInput = aiInput;
         }
 
-        // take AI input (Randomly decide things)
+        public override int ChooseGesture()
+        {
+            return 0; // take AI input (Randomly decide things)
+        }
     }
 }
