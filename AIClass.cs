@@ -22,7 +22,7 @@ namespace RockPaperScissorsLizardSpock
         {
             Random rng = new Random();
             int gestureRoll = rng.Next(5);
-            Console.WriteLine("DevTesting: " + gestureRoll);
+            // Console.WriteLine("DevTesting: " + gestureRoll);
             switch (gestureRoll)
             {
                 case 0:
