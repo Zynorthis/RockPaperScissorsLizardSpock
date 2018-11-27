@@ -18,7 +18,7 @@ namespace RockPaperScissorsLizardSpock
             this.humanInput = humanInput;
         }
 
-        public override string ChooseGesture()
+        public override void ChooseGesture()
         {
             string choiceDialoge = "------------------- \n";
             choiceDialoge += "Choose a gesture: \n";
@@ -29,31 +29,28 @@ namespace RockPaperScissorsLizardSpock
             choiceDialoge += "Spock \n";
             choiceDialoge += "-------------------";
             Console.WriteLine(choiceDialoge);
-            string choice;
             switch (Console.ReadLine().ToLower())
             {
                 case "rock":
-                    choice = "rock";
+                    gesture = "rock";
                     break;
                 case "paper":
-                    choice = "paper";
+                    gesture = "paper";
                     break;
                 case "scissors":
-                    choice = "scissors";
+                    gesture = "scissors";
                     break;
                 case "lizard":
-                    choice = "lizard";
+                    gesture = "lizard";
                     break;
                 case "spock":
-                    choice = "spock";
+                    gesture = "spock";
                     break;
                 default:
                     Console.WriteLine("Invalid Input, make sure you spelled it correctly!");
                     ChooseGesture();
-                    choice = "something";
                     break;
             }
-            return choice;
         }
     }
 }

@@ -18,13 +18,33 @@ namespace RockPaperScissorsLizardSpock
             this.aiInput = aiInput;
         }
 
-        public override string ChooseGesture()
+        public override void ChooseGesture()
         {
             Random rng = new Random();
             int gestureRoll = rng.Next(5);
             Console.WriteLine("DevTesting: " + gestureRoll);
-            //this.gesture = gesturesList.ElementAt(gestureRoll);
-            return gesturesList.ElementAt(gestureRoll);
+            switch (gestureRoll)
+            {
+                case 0:
+                    gesture = "rock";
+                    break;
+                case 1:
+                    gesture = "paper";
+                    break;
+                case 2:
+                    gesture = "scissors";
+                    break;
+                case 3:
+                    gesture = "lizard";
+                    break;
+                case 4:
+                    gesture = "spock";
+                    break;
+                default:
+                    Console.WriteLine("Invalid Input, make sure you spelled it correctly!");
+                    ChooseGesture();
+                    break;
+            }
         }
     }
 }

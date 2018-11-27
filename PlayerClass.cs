@@ -29,9 +29,6 @@ namespace RockPaperScissorsLizardSpock
             gesturesList.Add("spock");
         }
 
-        public abstract string ChooseGesture();
-
-        // hold information about players
-        // (which gesture / win counter)
+        public abstract void ChooseGesture();
     }
 }

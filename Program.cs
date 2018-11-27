@@ -11,7 +11,7 @@ namespace RockPaperScissorsLizardSpock
         static void Main(string[] args)
         {
             Game GameHandler = new Game(0, false, 0, true); // Object Handling game counters/conditionals
-            GameHandler.GameInitializer(); // <---- how does one reference...
+            GameHandler.GameInitializer();
         }
     }
 }

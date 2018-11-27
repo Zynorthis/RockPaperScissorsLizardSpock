@@ -46,8 +46,7 @@ namespace RockPaperScissorsLizardSpock
         {
             // everything runs here
             TurnHandler();
-            gestureComparision();
-            if (roundCounter >= maxRounds)
+            if (Player1.personalScore >= ((maxRounds/2)+1) || Player2.personalScore >= ((maxRounds / 2) + 1))
             {
                 //End of game intiates
                 Console.Clear();
@@ -55,10 +54,12 @@ namespace RockPaperScissorsLizardSpock
                 if (Player1.personalScore > Player2.personalScore)
                 {
                     Console.WriteLine("Player 1 is the Winner!");
+                    Console.ReadLine();
                 }
                 else if (Player2.personalScore > Player1.personalScore)
                 {
                     Console.WriteLine("Player 2 is the Winner!");
+                    Console.ReadLine();
                 }
                 else
                 {
@@ -74,6 +75,7 @@ namespace RockPaperScissorsLizardSpock
 
         public void PlayerCounter()
         {
+            // only two players can play right now but support for more is in place.
             Console.WriteLine("How Many Players will there be? (Choose between 2-4)");
             int NumberOfPlayers = Int32.Parse(Console.ReadLine());
             switch (NumberOfPlayers){
@@ -118,24 +120,46 @@ namespace RockPaperScissorsLizardSpock
             maxRounds = Int32.Parse(Console.ReadLine());
             if (maxRounds < 3 || maxRounds > 25)
             {
-                Console.WriteLine(errorMessage);
-                Console.ReadLine();
-                RoundInitializer();
-            }
-            else {
-                if (maxRounds%2 == 0)
+                switch (maxRounds)
                 {
-                    Console.WriteLine(errorMessage + "\n" + "The rounds need to be an odd amount or the game may end in a draw!");
-                    Console.ReadLine();
-                    RoundInitializer();
+                    case (0):
+                        Console.WriteLine("Huh?");
+                        break;
+                    default:
+                        Console.WriteLine(errorMessage);
+                        Console.WriteLine("press any key to continue");
+                        Console.ReadLine();
+                        RoundInitializer();
+                        break;
                 }
+                return maxRounds;
             }
-            return maxRounds;
+            else if (maxRounds % 2 == 0)
+            {
+                switch (maxRounds)
+                {
+                    case (0):
+                        Console.WriteLine("Huh?");
+                        break;
+                    default:
+                        Console.WriteLine(errorMessage);
+                        Console.WriteLine("Make sure that you enter in an odd number otherwise the players may draw!");
+                        Console.WriteLine("press any key to continue");
+                        Console.ReadLine();
+                        RoundInitializer();
+                        break;
+                }
+                return maxRounds;
+            }
+            else
+            {
+                return maxRounds;
+            }
         }
 
         public void PlayerInitializer()
         {
-
+            // only two players are about to play right now but support for more is in place here.
             if (isSinglePlayer == true)
             {
                 Player1 = new Human("none", 0, 0);
@@ -162,9 +186,12 @@ namespace RockPaperScissorsLizardSpock
             Console.WriteLine("Press any key to continue");
             Console.ReadLine();
             Console.Clear();
-            Player1.gesture = Player1.ChooseGesture();
+            Console.WriteLine("It is player 1's turn!");
+            Player1.ChooseGesture();
             Console.Clear();
-            Player2.gesture = Player2.ChooseGesture();
+            Console.WriteLine("It is player 2's turn!");
+            Player2.ChooseGesture();
+            gestureComparision();
         }
 
         public void gestureComparision()
@@ -177,6 +204,7 @@ namespace RockPaperScissorsLizardSpock
             }
             else
             {
+                // nested switches are here to decide what player won and increase counters accordingly.
                 switch (Player1.gesture) { 
                     case "rock":
                         switch (Player2.gesture)
@@ -330,9 +358,5 @@ namespace RockPaperScissorsLizardSpock
                 }
             }
         }
-
-        // decide round winners
-        // decide overall winner
-        // select amount of rounds
     }
 }
